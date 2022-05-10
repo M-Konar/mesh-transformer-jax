@@ -22,7 +22,7 @@
   "tpu_size": 8,
 
   "bucket": "fctm-bucket",
-  "model_dir": "mesh_jax_pile_6B_rotary",
+  "model_dir": "fctm-model",
 
   "train_set": "fctm.train.index",
   "val_set": {
