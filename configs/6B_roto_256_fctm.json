@@ -21,8 +21,8 @@
 
   "tpu_size": 8,
 
-  "bucket": "fctm-bucket",
-  "model_dir": "fctm-model",
+  "bucket": "fctm-bucket-new",
+  "model_dir": "model_dir",
 
   "train_set": "fctm.train.index",
   "val_set": {

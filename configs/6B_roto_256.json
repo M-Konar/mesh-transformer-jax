@@ -21,7 +21,7 @@
 
   "tpu_size": 256,
 
-  "bucket": "fctm-bucket",
+  "bucket": "neo-models",
   "model_dir": "mesh_jax_pile_6B_rotary",
 
   "train_set": "pile.train.index",
