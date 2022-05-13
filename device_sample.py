@@ -95,11 +95,17 @@ if __name__ == "__main__":
             padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)
             batched_tokens = np.array([padded_tokens] * total_batch)
             length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
-
-            output = network.generate(batched_tokens, length, 512, {"top_p": np.ones(total_batch) * 0.9,
-                                                                    "temp": np.ones(total_batch) * 0.75})
+            
+            temp = input("Type temperature:")
+            temperature = float(temp) if temp else 0.75
+            top_p = input("Type top_p:")
+            top_p = float(top_p) if top_p else 0.9
+            output = network.generate(batched_tokens, length, 512, {"top_p": np.ones(total_batch) * top_p,
+                                                                    "temp": np.ones(total_batch) * temperature})
+                          #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
 
             for idx, o in enumerate(output[1][0][:, :, 0]):
-                print(f"sample {idx}: {repr(tokenizer.decode(o))}")
+                #print(f"sample {idx}: {repr(tokenizer.decode(o))}")
+                print(output)
 
             print(f"completion done in {time.time() - start:06}s")
