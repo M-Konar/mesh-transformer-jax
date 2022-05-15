@@ -107,16 +107,12 @@ if __name__ == "__main__":
                 top_p = float(top_p)
             except(ValueError):
                 top_p = 0.9
-            unknownNum = input("Type unknownNum:")
-            try:
-                unknownNum = int(unknownNum)
-            except(ValueError):
-                unknownNum = 1
             output = network.generate(batched_tokens, length, 512, {"top_p": np.ones(total_batch) * top_p,
                                                                     "temp": np.ones(total_batch) * temperature})
                           #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
+
             try:
-                for idx, o in enumerate(output[unknownNum][0][:, :, 0]):
+                for idx, o in enumerate(output[1][0][:, :, 0]):
                     print(f"sample {idx}: {repr(tokenizer.decode(o))}")
             except:
                 continue
