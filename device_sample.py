@@ -103,9 +103,9 @@ if __name__ == "__main__":
             output = network.generate(batched_tokens, length, 512, {"top_p": np.ones(total_batch) * top_p,
                                                                     "temp": np.ones(total_batch) * temperature})
                           #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
-            for i in range(total_batch):
-                for idx, o in enumerate(output[i][0][:, :, 0]):
-                    print(f"sample {idx}: {repr(tokenizer.decode(o))}")
-                    # print(output)
+           
+            for idx, o in enumerate(output[1][0][:, :, 0]):
+                print(f"sample {idx}: {repr(tokenizer.decode(o))}")
+                # print(output)
 
             print(f"completion done in {time.time() - start:06}s")
