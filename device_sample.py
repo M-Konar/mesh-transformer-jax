@@ -97,15 +97,27 @@ if __name__ == "__main__":
             length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
             
             temp = input("Type temperature:")
-            temperature = float(temp) if temp else 0.75
+            try:
+                temperature = float(temp)
+            except(ValueError):
+                temperature = 0.75
+
             top_p = input("Type top_p:")
-            top_p = float(top_p) if top_p else 0.9
+            try:
+                top_p = float(top_p)
+            except(ValueError):
+                top_p = 0.9
+            unknownNum = input("Type unknownNum:")
+            try:
+                unknownNum = int(unknownNum)
+            except(ValueError):
+                unknownNum = 1
             output = network.generate(batched_tokens, length, 512, {"top_p": np.ones(total_batch) * top_p,
                                                                     "temp": np.ones(total_batch) * temperature})
                           #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
-           
-            for idx, o in enumerate(output[1][0][:, :, 0]):
-                print(f"sample {idx}: {repr(tokenizer.decode(o))}")
-                # print(output)
-
+            try:
+                for idx, o in enumerate(output[unknownNum][0][:, :, 0]):
+                    print(f"sample {idx}: {repr(tokenizer.decode(o))}")
+            except:
+                continue
             print(f"completion done in {time.time() - start:06}s")
