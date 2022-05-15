@@ -107,13 +107,24 @@ if __name__ == "__main__":
                 top_p = float(top_p)
             except(ValueError):
                 top_p = 0.9
-            output = network.generate(batched_tokens, length, 512, {"top_p": np.ones(total_batch) * top_p,
+
+            out_length = input("Type output length:")
+            try:
+                out_length = int(out_length)
+            except(ValueError):
+                out_length = 500
+            output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
                                                                     "temp": np.ones(total_batch) * temperature})
                           #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
 
             try:
                 for idx, o in enumerate(output[1][0][:, :, 0]):
-                    print(f"sample {idx}: {repr(tokenizer.decode(o))}")
+                    str = repr(tokenizer.decode(o))
+                    try:
+                        str = str[:str.index("<|endoftext|>")]
+                    except(ValueError):
+                        pass
+                    print(f"sample {idx}: {str}\n")
             except:
                 continue
             print(f"completion done in {time.time() - start:06}s")
