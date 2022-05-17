@@ -47,13 +47,10 @@ if __name__ == "__main__":
     seq = params["seq"]
     norm = params["norm"]
 
-    # sample = open("data/sample_for_dev.json", "r")
-    # list = json.load(sample)
-    # sample.close()
+    sample = open("data/sample_for_dev.json", "r")
+    list = json.load(sample)
+    sample.close()
 
-    inference_stream = open("sample.json",mode= "w", encoding='utf-8')
-    inference_stream.write(json.dumps({"aa": 14}))
-    inference_stream.close()
 
     params["sampler"] = nucleaus_sample
     opt = optax.chain(
