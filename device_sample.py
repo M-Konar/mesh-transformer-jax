@@ -27,9 +27,7 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    sample = open("C:\\Users\kewi\Desktop\\from code to model\mesh-transformer-jax\data\sample_for_dev.json", "r")
-    list = json.load(sample)
-    sample.close()
+    
     params = json.load(open(args.config))
 
     
@@ -49,6 +47,10 @@ if __name__ == "__main__":
     seq = params["seq"]
     norm = params["norm"]
 
+    sample = open("C:\\Users\kewi\Desktop\\from code to model\mesh-transformer-jax\data\sample_for_dev.json", "r")
+    list = json.load(sample)
+    sample.close()
+    
     params["sampler"] = nucleaus_sample
     opt = optax.chain(
         optax.scale(1 / gradient_accumulation_steps),
