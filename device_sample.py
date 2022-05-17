@@ -15,6 +15,9 @@ from smart_open import open
 
 from mesh_transformer.util import clip_by_global_norm
 
+from datetime import datetime
+from datetime import date
+
 
 def parse_args():
     # Parse command line arguments
@@ -98,7 +101,7 @@ if __name__ == "__main__":
         top_p = 0.9
         out_length = 600
         inference_out ={
-            "starting datetime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
+            "starting datetime": str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S"),
             "finishing datetime": "",
             "Temperature":  temperature,
             "Top_p": top_p,
@@ -168,7 +171,7 @@ if __name__ == "__main__":
 
             print(f"completion done in {time.time() - start:06}s")
         inference_out["tasks"] = tasks
-        inference_out["finishing datetime"] = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+        inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
         inference_stream = open("sample.json",mode= "w", encoding='utf-8')
         inference_stream.write(json.dumps(inference_out))
         inference_stream.close()
