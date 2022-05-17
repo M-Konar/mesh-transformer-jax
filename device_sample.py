@@ -29,7 +29,7 @@ if __name__ == "__main__":
     args = parse_args()
     
     params = json.load(open(args.config))
-
+    
     
 
     gradient_accumulation_steps = params.get("gradient_accumulation_steps", 1)
@@ -47,9 +47,13 @@ if __name__ == "__main__":
     seq = params["seq"]
     norm = params["norm"]
 
-    sample = open("data/sample_for_dev.json", "r")
-    list = json.load(sample)
-    sample.close()
+    # sample = open("data/sample_for_dev.json", "r")
+    # list = json.load(sample)
+    # sample.close()
+
+    inference_stream = open("sample.json",mode= "w", encoding='utf-8')
+    inference_stream.write(json.dumps({"aa": 14}))
+    inference_stream.close()
 
     params["sampler"] = nucleaus_sample
     opt = optax.chain(
