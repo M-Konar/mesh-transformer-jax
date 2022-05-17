@@ -161,6 +161,6 @@ if __name__ == "__main__":
 
             print(f"completion done in {time.time() - start:06}s")
         inference_out["tasks"] = tasks
-        inference_stream = open("data/inference_out/sample.json",mode= "w", encoding='utf-8')
+        inference_stream = open("sample.json",mode= "w", encoding='utf-8')
         inference_stream.write(json.dumps(inference_out))
         inference_stream.close()
