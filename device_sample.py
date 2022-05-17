@@ -158,13 +158,12 @@ if __name__ == "__main__":
 
             
             for idx, o in enumerate(output[1][0][:, :, 0]):
-                str = repr(tokenizer.decode(o))
                 sample = {
 				"task_id": task_id,
                 "task_description": task_description ,
                 "test_list":test_list,
 				"sample_id": idx,
-				"completion": str	
+				"completion": repr(tokenizer.decode(o))	
 			    }
                 tasks.append(sample)
                 # print(f"sample {idx}: {str}\n")
