@@ -98,7 +98,8 @@ if __name__ == "__main__":
         top_p = 0.9
         out_length = 600
         inference_out ={
-            "Finishing datetime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
+            "starting datetime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
+            "finishing datetime": "",
             "Temperature":  temperature,
             "Top_p": top_p,
             "Out_length": out_length,
@@ -155,13 +156,19 @@ if __name__ == "__main__":
             
             for idx, o in enumerate(output[1][0][:, :, 0]):
                 str = repr(tokenizer.decode(o))
-                sample["sample_id"] = idx
-                sample['completion'] = str
+                sample = {
+				"task_id": task_id,
+                "task_description": task_description ,
+                "test_list":test_list,
+				"sample_id": idx,
+				"completion": str	
+			    }
                 tasks.append(sample)
                 # print(f"sample {idx}: {str}\n")
 
             print(f"completion done in {time.time() - start:06}s")
         inference_out["tasks"] = tasks
+        inference_out["finishing datetime"] = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
         inference_stream = open("sample.json",mode= "w", encoding='utf-8')
         inference_stream.write(json.dumps(inference_out))
         inference_stream.close()
