@@ -11,9 +11,4 @@ def getSampleSanitizedDataset( ):
         prompt = list[i]['prompt']
         test_list = list[i]['test_list']
         print(prompt)
-import time
-b=2
-a = {"a":4, "b": b}
-for i in range(1,4):
-    b = b+1
-    print(a)
+getSampleSanitizedDataset()

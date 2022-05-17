@@ -29,6 +29,10 @@ if __name__ == "__main__":
     args = parse_args()
     params = json.load(open(args.config))
 
+    sample = open("C:\Users\kewi\Desktop\from code to model\mesh-transformer-jax\data\sample_for_dev.json", "r")
+    list = json.load(sample)
+    sample.close()
+
     gradient_accumulation_steps = params.get("gradient_accumulation_steps", 1)
     per_replica_batch = params["per_replica_batch"]
     cores_per_replica = params["cores_per_replica"]
@@ -83,9 +87,7 @@ if __name__ == "__main__":
 
         tokenizer = transformers.GPT2TokenizerFast.from_pretrained('gpt2')
         # while True:
-        sample = open("data\sample_for_dev.json", "r")
-        list = json.load(sample)
-        sample.close() 
+         
 
        
         temperature = 0.5
