@@ -27,11 +27,12 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    params = json.load(open(args.config))
-
     sample = open("C:\Users\kewi\Desktop\from code to model\mesh-transformer-jax\data\sample_for_dev.json", "r")
     list = json.load(sample)
     sample.close()
+    params = json.load(open(args.config))
+
+    
 
     gradient_accumulation_steps = params.get("gradient_accumulation_steps", 1)
     per_replica_batch = params["per_replica_batch"]
