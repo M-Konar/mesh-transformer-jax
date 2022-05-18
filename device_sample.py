@@ -93,108 +93,110 @@ if __name__ == "__main__":
         network.state = network.move_xmap(network.state, np.zeros(local_shards))
 
         tokenizer = transformers.GPT2TokenizerFast.from_pretrained('gpt2')
-        # while True:
-        decision = input("1: for manual-gen\n2: for auto-gen\nYour choice: ")
-        if decision == "1":
-            while True:
-                context = input("Type input:")
-                tokens = tokenizer.encode(context)
+        while True:
+            decision = input("1: for manual-gen\n2: for auto-gen\nYour choice: ")
+            if decision == "1":
+                while True:
+                    context = input("btpm404 or Type input:")
+                    if context == "btpm404":
+                        break
+                    tokens = tokenizer.encode(context)
 
-                start = time.time()
+                    start = time.time()
 
-                provided_ctx = len(tokens)
-                pad_amount = seq - provided_ctx
-                pad_amount = max(pad_amount, 0)
-                padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
-                batched_tokens = np.array([padded_tokens] * total_batch)
-                length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
+                    provided_ctx = len(tokens)
+                    pad_amount = seq - provided_ctx
+                    pad_amount = max(pad_amount, 0)
+                    padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
+                    batched_tokens = np.array([padded_tokens] * total_batch)
+                    length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
 
-                temperature = input("Type temperature:")
-                try:
-                    temperature = float(temperature)
-                except(ValueError):
-                    temperature = 0.75
+                    temperature = input("Type temperature:")
+                    try:
+                        temperature = float(temperature)
+                    except(ValueError):
+                        temperature = 0.75
 
-                top_p = input("Type top_p:")
-                try:
-                    top_p = float(top_p)
-                except(ValueError):
-                    top_p = 0.9
+                    top_p = input("Type top_p:")
+                    try:
+                        top_p = float(top_p)
+                    except(ValueError):
+                        top_p = 0.9
 
-                out_length = input("Type output length:")
-                try:
-                    out_length = int(out_length)
-                except(ValueError):
-                    out_length = 512
+                    out_length = input("Type output length:")
+                    try:
+                        out_length = int(out_length)
+                    except(ValueError):
+                        out_length = 512
 
-                output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
-                                                                        "temp": np.ones(total_batch) * temperature})
+                    output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
+                                                                            "temp": np.ones(total_batch) * temperature})
 
-                for idx, o in enumerate(output[1][0][:, :, 0]):
-                    string = repr(tokenizer.decode(o))
-                    string = string.replace(r"\n", "\n")
-                    print(f"sample {idx}: {string}\n")
+                    for idx, o in enumerate(output[1][0][:, :, 0]):
+                        string = repr(tokenizer.decode(o))
+                        string = string.replace(r"\n", "\n")
+                        print(f"sample {idx}: {string}\n")
 
-                print(f"completion done in {time.time() - start:06}s")
-        elif decision == "2":
-            temperature = 0.5
-            top_p = 0.9
-            out_length = 600
-            inference_out ={
-                "starting datetime": str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S"),
-                "finishing datetime": "",
-                "Temperature":  temperature,
-                "Top_p": top_p,
-                "Out_length": out_length,
-                "sample_no": per_replica_batch,
-                "tasks": []
-                }
-            tasks = []
-            for i in range(len(list)):   
-                task_id = list[i]['task_id']
-                task_description = list[i]['task_description']
-                prompt = list[i]['prompt']
-                test_list = list[i]['test_list']
-
-                sample = {
-                    "task_id": task_id,
-                    "task_description": task_description ,
-                    "test_list":test_list,
-                    "sample_id": "",
-                    "completion": "",	
-                }
-                context = prompt
-                tokens = tokenizer.encode(context)
-
-                start = time.time()
-
-                provided_ctx = len(tokens)
-                pad_amount = seq - provided_ctx
-                pad_amount = max(pad_amount, 0)
-                padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
-                batched_tokens = np.array([padded_tokens] * total_batch)
-                length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
-                
-                
-                output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
-                                                                        "temp": np.ones(total_batch) * temperature})
-                            #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
-
-                
-                for idx, o in enumerate(output[1][0][:, :, 0]):
-                    sample = {
-                    "task_id": task_id,
-                    "task_description": task_description ,
-                    "test_list":test_list,
-                    "sample_id": idx,
-                    "completion": repr(tokenizer.decode(o))	
+                    print(f"completion done in {time.time() - start:06}s")
+            elif decision == "2":
+                temperature = 0.5
+                top_p = 0.9
+                out_length = 600
+                inference_out ={
+                    "starting datetime": str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S"),
+                    "finishing datetime": "",
+                    "Temperature":  temperature,
+                    "Top_p": top_p,
+                    "Out_length": out_length,
+                    "sample_no": per_replica_batch,
+                    "tasks": []
                     }
-                    tasks.append(sample)
-                    # print(f"sample {idx}: {str}\n")
+                tasks = []
+                for i in range(len(list)):   
+                    task_id = list[i]['task_id']
+                    task_description = list[i]['task_description']
+                    prompt = list[i]['prompt']
+                    test_list = list[i]['test_list']
 
-                print(f"completion done in {time.time() - start:06}s")
-            inference_out["tasks"] = tasks
-            inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
-            inference_stream = open("sample.json",mode= "w", encoding='utf-8')
-            inference_stream.write(json.dumps(inference_out))
-            inference_stream.close()
+                    sample = {
+                        "task_id": task_id,
+                        "task_description": task_description ,
+                        "test_list":test_list,
+                        "sample_id": "",
+                        "completion": "",	
+                    }
+                    context = prompt
+                    tokens = tokenizer.encode(context)
+
+                    start = time.time()
+
+                    provided_ctx = len(tokens)
+                    pad_amount = seq - provided_ctx
+                    pad_amount = max(pad_amount, 0)
+                    padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
+                    batched_tokens = np.array([padded_tokens] * total_batch)
+                    length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
+                    
+                    
+                    output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
+                                                                            "temp": np.ones(total_batch) * temperature})
+                                #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
+
+                    
+                    for idx, o in enumerate(output[1][0][:, :, 0]):
+                        sample = {
+                        "task_id": task_id,
+                        "task_description": task_description ,
+                        "test_list":test_list,
+                        "sample_id": idx,
+                        "completion": repr(tokenizer.decode(o))	
+                        }
+                        tasks.append(sample)
+                        # print(f"sample {idx}: {str}\n")
+
+                    print(f"completion done in {time.time() - start:06}s")
+                inference_out["tasks"] = tasks
+                inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
+                inference_stream = open("sample.json",mode= "w", encoding='utf-8')
+                inference_stream.write(json.dumps(inference_out))
+                inference_stream.close()
