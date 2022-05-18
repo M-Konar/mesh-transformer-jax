@@ -131,7 +131,9 @@ if __name__ == "__main__":
                                                                         "temp": np.ones(total_batch) * temperature})
 
                 for idx, o in enumerate(output[1][0][:, :, 0]):
-                    print(f"sample {idx}: {repr(tokenizer.decode(o))}")
+                    string = repr(tokenizer.decode(o))
+                    string = string.replace(r"\n", "\n")
+                    print(f"sample {idx}: {string}\n")
 
                 print(f"completion done in {time.time() - start:06}s")
         elif decision == "2":
