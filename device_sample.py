@@ -138,11 +138,11 @@ if __name__ == "__main__":
                     print(f"completion done in {time.time() - start:06}s")
             elif decision == "2":
                 try:
-                    sample = open("data/prompts", "r")
+                    sample = open("data/prompts.json", "r")
                     list = json.load(sample)
                     sample.close()
                 except(FileNotFoundError):
-                    print("sample_for_dev.json not found")
+                    print("prompts not found")
                     break
                 temperature = 0.5
                 top_p = 0.9
