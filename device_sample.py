@@ -143,7 +143,7 @@ if __name__ == "__main__":
                     sample.close()
                 except(FileNotFoundError):
                     print("prompts not found")
-                    break
+                    continue
                 temperature = 0.5
                 top_p = 0.9
                 out_length = 600
@@ -210,4 +210,4 @@ if __name__ == "__main__":
                     inference_stream.close()
                 except(FileNotFoundError):
                     print("unfiltered_generation.json not found")
-                    break
+                    continue
