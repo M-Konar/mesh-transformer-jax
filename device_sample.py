@@ -50,9 +50,7 @@ if __name__ == "__main__":
     seq = params["seq"]
     norm = params["norm"]
 
-    sample = open("data/sample_for_dev.json", "r")
-    list = json.load(sample)
-    sample.close()
+    
 
 
     params["sampler"] = nucleaus_sample
@@ -139,6 +137,13 @@ if __name__ == "__main__":
 
                     print(f"completion done in {time.time() - start:06}s")
             elif decision == "2":
+                try:
+                    sample = open("data/prompts", "r")
+                    list = json.load(sample)
+                    sample.close()
+                except(FileNotFoundError):
+                    print("sample_for_dev.json not found")
+                    break
                 temperature = 0.5
                 top_p = 0.9
                 out_length = 600
@@ -148,7 +153,9 @@ if __name__ == "__main__":
                     "Temperature":  temperature,
                     "Top_p": top_p,
                     "Out_length": out_length,
+                    "tasks_count": len(list),
                     "sample_no": per_replica_batch,
+                    "incomplete_generations": 0,
                     "tasks": []
                     }
                 tasks = []
@@ -197,6 +204,10 @@ if __name__ == "__main__":
                     print(f"completion done in {time.time() - start:06}s")
                 inference_out["tasks"] = tasks
                 inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
-                inference_stream = open("sample.json",mode= "w", encoding='utf-8')
-                inference_stream.write(json.dumps(inference_out))
-                inference_stream.close()
+                try:
+                    inference_stream = open("unfiltered_generation.json",mode= "w", encoding='utf-8')
+                    inference_stream.write(json.dumps(inference_out))
+                    inference_stream.close()
+                except(FileNotFoundError):
+                    print("unfiltered_generation.json not found")
+                    break
