@@ -178,51 +178,56 @@ if __name__ == "__main__":
                 start = time.time()
                 sum_time =0
                 times_count=0
-                for i in range(len(list)):   
-                    task_id = list[i]['task_id']
-                    task_description = list[i]['task_description']
-                    prompt = list[i]['prompt']
-                    test_list = list[i]['test_list']
+                try:
+                    for i in range(len(list)):   
+                        task_id = list[i]['task_id']
+                        task_description = list[i]['task_description']
+                        prompt = list[i]['prompt']
+                        test_list = list[i]['test_list']
 
-                    sample = {
-                        "task_id": task_id,
-                        "task_description": task_description ,
-                        "test_list":test_list,
-                        "sample_id": "",
-                        "completion": "",	
-                    }
-                    context = prompt
-                    tokens = tokenizer.encode(context)
-
-                    min_start = time.time()
-
-                    provided_ctx = len(tokens)
-                    pad_amount = seq - provided_ctx
-                    pad_amount = max(pad_amount, 0)
-                    padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
-                    batched_tokens = np.array([padded_tokens] * total_batch)
-                    length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
-                    
-                    
-                    output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
-                                                                            "temp": np.ones(total_batch) * temperature})
-                                #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
-
-                    
-                    for idx, o in enumerate(output[1][0][:, :, 0]):
                         sample = {
-                        "task_id": task_id,
-                        "task_description": task_description ,
-                        "test_list":test_list,
-                        "sample_id": idx,
-                        "completion": repr(tokenizer.decode(o))	
+                            "task_id": task_id,
+                            "task_description": task_description ,
+                            "test_list":test_list,
+                            "sample_id": "",
+                            "completion": "",	
                         }
-                        tasks.append(sample)
-                        # print(f"sample {idx}: {str}\n")
-                    sum_time += time.time() - min_start
-                    times_count+=1
-                    print(f"completion done in {time.time() - min_start:06}s")
-                    print("iteration", i,"/",len(list),"eta: ",(len(list)-i)*(sum_time/times_count)/60," min")
+                        context = prompt
+                        tokens = tokenizer.encode(context)
+
+                        min_start = time.time()
+
+                        provided_ctx = len(tokens)
+                        pad_amount = seq - provided_ctx
+                        pad_amount = max(pad_amount, 0)
+                        padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
+                        batched_tokens = np.array([padded_tokens] * total_batch)
+                        length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
+                        
+                        
+                        output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
+                                                                                "temp": np.ones(total_batch) * temperature})
+                                    #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
+
+                        
+                        for idx, o in enumerate(output[1][0][:, :, 0]):
+                            sample = {
+                            "task_id": task_id,
+                            "task_description": task_description ,
+                            "test_list":test_list,
+                            "sample_id": idx,
+                            "completion": repr(tokenizer.decode(o))	
+                            }
+                            tasks.append(sample)
+                            # print(f"sample {idx}: {str}\n")
+                        sum_time += time.time() - min_start
+                        times_count+=1
+                        print(f"completion done in {time.time() - min_start:06}s")
+                        print("iteration", i,"/",len(list),"eta: ",(len(list)-i)*(sum_time/times_count)/60," min")
+                except Exception as e:
+                    print("XXXXXXXXXXXXXXXX--Error occured--XXXXXXXXXXXXXXXX")
+                    print(e)
+                    pass
                 print(f"Generation done in {time.time() - start:06}s")
                 print("Saving...")
                 inference_out["tasks"] = tasks
