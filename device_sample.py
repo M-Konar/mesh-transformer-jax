@@ -176,6 +176,8 @@ if __name__ == "__main__":
                     }
                 tasks = []
                 start = time.time()
+                sum_time =0
+                times_count=0
                 for i in range(len(list)):   
                     task_id = list[i]['task_id']
                     task_description = list[i]['task_description']
@@ -217,8 +219,10 @@ if __name__ == "__main__":
                         }
                         tasks.append(sample)
                         # print(f"sample {idx}: {str}\n")
+                    sum_time += time.time() - min_start
+                    times_count+=1
                     print(f"completion done in {time.time() - min_start:06}s")
-                    print("iteration", i,"/",len(list),"eta: ",(len(list)-i)*(time.time()-min_start)/60,"min")
+                    print("iteration", i,"/",len(list),"eta: ",(len(list)-i)*(sum_time/times_count)/60," min")
                 print(f"completion done in {time.time() - start:06}s")
                 inference_out["tasks"] = tasks
                 inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
