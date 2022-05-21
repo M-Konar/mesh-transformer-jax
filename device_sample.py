@@ -223,7 +223,8 @@ if __name__ == "__main__":
                     times_count+=1
                     print(f"completion done in {time.time() - min_start:06}s")
                     print("iteration", i,"/",len(list),"eta: ",(len(list)-i)*(sum_time/times_count)/60," min")
-                print(f"completion done in {time.time() - start:06}s")
+                print(f"Generation done in {time.time() - start:06}s")
+                print("Saving...")
                 inference_out["tasks"] = tasks
                 inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
                 try:
