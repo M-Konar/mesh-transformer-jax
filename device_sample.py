@@ -144,9 +144,25 @@ if __name__ == "__main__":
                 except(FileNotFoundError):
                     print("prompts not found")
                     continue
-                temperature = 0.5
-                top_p = 0.9
-                out_length = 600
+
+                temperature = input("Type temperature:")
+                try:
+                    temperature = float(temperature)
+                except(ValueError):
+                    temperature = 0.75
+
+                top_p = input("Type top_p:")
+                try:
+                    top_p = float(top_p)
+                except(ValueError):
+                    top_p = 0.9
+
+                out_length = input("Type output length:")
+                try:
+                    out_length = int(out_length)
+                except(ValueError):
+                    out_length = 512
+
                 inference_out ={
                     "starting datetime": str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S"),
                     "finishing datetime": "",
