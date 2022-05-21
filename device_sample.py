@@ -175,6 +175,7 @@ if __name__ == "__main__":
                     "tasks": []
                     }
                 tasks = []
+                start = time.time()
                 for i in range(len(list)):   
                     task_id = list[i]['task_id']
                     task_description = list[i]['task_description']
@@ -191,7 +192,7 @@ if __name__ == "__main__":
                     context = prompt
                     tokens = tokenizer.encode(context)
 
-                    start = time.time()
+                    min_start = time.time()
 
                     provided_ctx = len(tokens)
                     pad_amount = seq - provided_ctx
@@ -216,8 +217,9 @@ if __name__ == "__main__":
                         }
                         tasks.append(sample)
                         # print(f"sample {idx}: {str}\n")
-
-                    print(f"completion done in {time.time() - start:06}s")
+                    print(f"completion done in {time.time() - min_start:06}s")
+                    print("iteration", i,"/",len(list),"eta: ",(len(list)-i)*(time.time()-min_start)/60,"min")
+                print(f"completion done in {time.time() - start:06}s")
                 inference_out["tasks"] = tasks
                 inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
                 try:
