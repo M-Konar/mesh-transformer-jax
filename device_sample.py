@@ -162,14 +162,18 @@ if __name__ == "__main__":
                     out_length = int(out_length)
                 except(ValueError):
                     out_length = 512
-
+                save_every = input("save after how many iterations:")
+                try:
+                    save_every = int(save_every)
+                except(ValueError):
+                    save_every = 100
                 inference_out ={
                     "starting datetime": str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S"),
                     "finishing datetime": "",
                     "Temperature":  temperature,
                     "Top_p": top_p,
                     "Out_length": out_length,
-                    "tasks_count": len(list),
+                    "tasks_count": 0,
                     "sample_no": per_replica_batch,
                     "incomplete_generations": 0,
                     "tasks": []
@@ -224,6 +228,14 @@ if __name__ == "__main__":
                         times_count+=1
                         print(f"completion done in {time.time() - min_start:06}s")
                         print("iteration", i,"/",len(list),"eta: ",(len(list)-i)*(sum_time/times_count)/60," min")
+                        if i% save_every == 0:
+                            print("saving..")
+                            inference_out["tasks"] = tasks
+                            inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
+                            inference_stream = open("unfiltered_generation.json",mode= "w", encoding='utf-8')
+                            inference_stream.write(json.dumps(inference_out))
+                            inference_stream.close()
+                            inference_out["tasks"]= i
                 except Exception as e:
                     print("XXXXXXXXXXXXXXXX--Error occured--XXXXXXXXXXXXXXXX")
                     print(e)
