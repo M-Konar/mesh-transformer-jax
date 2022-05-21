@@ -176,6 +176,7 @@ if __name__ == "__main__":
                     "tasks_count": 0,
                     "sample_no": per_replica_batch,
                     "incomplete_generations": 0,
+                    "errors_count": 0, 
                     "tasks": []
                     }
                 tasks = []
