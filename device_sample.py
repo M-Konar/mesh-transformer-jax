@@ -190,8 +190,7 @@ if __name__ == "__main__":
                 times_count=0
                 try:
                     for i in range(len(list)): 
-                        if i == quit_after:
-                            break  
+                          
                         task_id = list[i]['task_id']
                         task_description = list[i]['task_description']
                         prompt = list[i]['prompt']
@@ -244,6 +243,8 @@ if __name__ == "__main__":
                             inference_stream.write(json.dumps(inference_out))
                             inference_stream.close()
                             inference_out["tasks"]= i
+                        if i == quit_after:
+                            break
                 except Exception as e:
                     print("XXXXXXXXXXXXXXXX--Error occured--XXXXXXXXXXXXXXXX")
                     print(e)
