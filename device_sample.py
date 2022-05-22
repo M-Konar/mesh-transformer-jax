@@ -162,11 +162,16 @@ if __name__ == "__main__":
                     out_length = int(out_length)
                 except(ValueError):
                     out_length = 512
-                save_every = input("save after how many iterations:")
+                save_every = input("Save after how many iterations:")
                 try:
                     save_every = int(save_every)
                 except(ValueError):
-                    save_every = 100
+                    save_every = 20
+                quit_after = input("Quit after how many iterations:")
+                try:
+                    quit_after = int(quit_after)
+                except(ValueError):
+                    quit_after = 100
                 inference_out ={
                     "starting datetime": str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S"),
                     "finishing datetime": "",
@@ -184,7 +189,9 @@ if __name__ == "__main__":
                 sum_time =0
                 times_count=0
                 try:
-                    for i in range(len(list)):   
+                    for i in range(len(list)): 
+                        if i == quit_after:
+                            break  
                         task_id = list[i]['task_id']
                         task_description = list[i]['task_description']
                         prompt = list[i]['prompt']
