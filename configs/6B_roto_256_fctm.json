@@ -10,14 +10,14 @@
   "seq": 2048,
   "cores_per_replica": 8,
   "per_replica_batch": 10,
-  "gradient_accumulation_steps": 16,
+  "gradient_accumulation_steps": 8,
 
   "warmup_steps": 1,
-  "anneal_steps": 5,
-  "lr": 3e-5,
-  "end_lr": 6e-6,
+  "anneal_steps": 10,
+  "lr": 5e-5,
+  "end_lr": 1e-5,
   "weight_decay": 0.1,
-  "total_steps": 6,
+  "total_steps": 11,
 
   "tpu_size": 8,
 
@@ -31,11 +31,11 @@
 
   "eval_harness_tasks": [
   ],
-  
+
   "val_batches": 100,
   "val_every": 500,
-  "ckpt_every": 1,
-  "keep_every": 1,
+  "ckpt_every": 2,
+  "keep_every": 2,
 
   "name": "GPTJ_6B_fctm_v1.0",
   
