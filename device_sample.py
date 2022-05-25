@@ -217,7 +217,7 @@ if __name__ == "__main__":
                         pad_amount = seq - provided_ctx
                         pad_amount = max(pad_amount, 0)
                         padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
-                        total_batch = (total_batch/per_replica_batch)* samples_amount
+                        total_batch = int((total_batch/per_replica_batch)* samples_amount)
                         batched_tokens = np.array([padded_tokens] * total_batch)
                         length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
                         
