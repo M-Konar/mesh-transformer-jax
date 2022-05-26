@@ -12,12 +12,12 @@
   "per_replica_batch": 10,
   "gradient_accumulation_steps": 16,
 
-  "warmup_steps": 2,
-  "anneal_steps": 18,
+  "warmup_steps": 5,
+  "anneal_steps": 78,
   "lr": 5e-5,
   "end_lr": 1e-5,
   "weight_decay": 0.1,
-  "total_steps": 20,
+  "total_steps": 83,
 
   "tpu_size": 8,
 
@@ -33,9 +33,9 @@
   ],
 
   "val_batches": 100,
-  "val_every": 500,
-  "ckpt_every": 2,
-  "keep_every": 2,
+  "val_every": 50000,
+  "ckpt_every": 14,
+  "keep_every": 20,
 
   "name": "GPTJ_6B_fctm_v1.0",
   
