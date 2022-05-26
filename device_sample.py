@@ -95,9 +95,30 @@ if __name__ == "__main__":
             decision = input("1: for manual-gen\n2: for auto-gen\nYour choice: ")
             if decision == "1":
                 while True:
+
+                    
+
                     context = input("btpm404 or Type input:")
                     if context == "btpm404":
                         break
+
+
+                    # print("What task do you want to do?\n1: for string manipulation\n2: for list manipulation\n3: for CSV operations \n4: for other\n5: don't add anything")
+                    # few_shots_type = input("task number: ")
+                    # try:
+                    #     few_shots_type = int(few_shots_type)
+                    # except(ValueError):
+                    #     few_shots_type = 5
+                    # few_shots_prompt =""
+                    # if few_shots_type == 1:
+                    #     few_shots_prompt= ""
+                    # elif few_shots_type == 2:
+                    #     few_shots_prompt = "list"
+                    # elif few_shots_type == 3:
+                    #     few_shots_prompt = "csv"
+                    # elif few_shots_type == 4:
+                    #     few_shots_prompt = "other"
+
                     tokens = tokenizer.encode(context)
 
                     start = time.time()
@@ -126,6 +147,7 @@ if __name__ == "__main__":
                         out_length = int(out_length)
                     except(ValueError):
                         out_length = 512
+                    
 
                     output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
                                                                             "temp": np.ones(total_batch) * temperature})
