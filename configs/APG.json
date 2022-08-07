@@ -32,9 +32,9 @@
   ],
 
   "val_batches": 781,
-  "val_every": 500,
+  "val_every": 100,
   "ckpt_every": 500,
-  "keep_every": 10000,
+  "keep_every": 2000,
 
   "name": "GPT3_6B_APG_V1.0",
   "comment": ""
