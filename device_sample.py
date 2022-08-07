@@ -229,7 +229,7 @@ if __name__ == "__main__":
                         except(Exception):
                             pass
                         row.append(string)
-
+                        table.append(row)
 
                     with open('data/test_out.csv', 'w', encoding='utf-8') as saved_file:
                         writer = csv.writer(saved_file)
