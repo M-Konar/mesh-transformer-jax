@@ -192,19 +192,22 @@ if __name__ == "__main__":
                     out_length = int(out_length)
                 except(ValueError):
                     out_length = 512
-                save_every = input("Save after how many iterations:")
-                try:
-                    save_every = int(save_every)
-                except(ValueError):
-                    save_every = 20
-                quit_after = input("Quit after how many iterations:")
-                try:
-                    quit_after = int(quit_after)
-                except(ValueError):
-                    quit_after = 100
+                # save_every = input("Save after how many iterations:")
+                # try:
+                #     save_every = int(save_every)
+                # except(ValueError):
+                #     save_every = 20
+                quit_after =  100 #input("Quit after how many iterations:")
+                # try:
+                #     quit_after = int(quit_after)
+                # except(ValueError):
+                #     quit_after = 100
                 
-
+                counter =0
                 for row in rows:
+                    quit_after-=1
+                    if(quit_after ==0):
+                        break
                     context = row[3]
                     tokens = tokenizer.encode(context)
                     # print(tokens)
@@ -229,9 +232,9 @@ if __name__ == "__main__":
                         row.append(string)
                         break
 
-                    print(f"completion done in {time.time() - start:06}s")
-            file_obj.close()
-            rows.to_csv('data/test_out.csv', index=False)
+                    print(f"completion done in {time.time() - start:06}s", "left:",counter )
+                rows.to_csv('data/test_out.csv', index=False)
+                file_obj.close()
 
 
                 # inference_out ={
