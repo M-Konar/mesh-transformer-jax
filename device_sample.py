@@ -86,20 +86,21 @@ if __name__ == "__main__":
         while True:
             context = input("Type input:")
             tokens = tokenizer.encode(context)
+            indexed_tokens = tokenizer.encode('سوانا')
+            print(indexed_tokens + "\n")
+            # start = time.time()
 
-            start = time.time()
+            # provided_ctx = len(tokens)
+            # pad_amount = seq - provided_ctx
 
-            provided_ctx = len(tokens)
-            pad_amount = seq - provided_ctx
+            # padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)
+            # batched_tokens = np.array([padded_tokens] * total_batch)
+            # length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
 
-            padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)
-            batched_tokens = np.array([padded_tokens] * total_batch)
-            length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
+            # output = network.generate(batched_tokens, length, 512, {"top_p": np.ones(total_batch) * 0.9,
+            #                                                         "temp": np.ones(total_batch) * 0.75})
 
-            output = network.generate(batched_tokens, length, 512, {"top_p": np.ones(total_batch) * 0.9,
-                                                                    "temp": np.ones(total_batch) * 0.75})
+            # for idx, o in enumerate(output[1][0][:, :, 0]):
+            #     print(f"sample {idx}: {repr(tokenizer.decode(o))}")
 
-            for idx, o in enumerate(output[1][0][:, :, 0]):
-                print(f"sample {idx}: {repr(tokenizer.decode(o))}")
-
-            print(f"completion done in {time.time() - start:06}s")
+            # print(f"completion done in {time.time() - start:06}s")
