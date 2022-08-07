@@ -205,6 +205,8 @@ if __name__ == "__main__":
                 
                 counter =0
                 table = []
+                with open('data/test_out.csv', 'w', encoding='utf-8') as saved_file:
+                    pass
                 for row in rows:
                     quit_after-=1
                     if(quit_after ==0):
@@ -230,8 +232,9 @@ if __name__ == "__main__":
                             pass
                         row.append(string)
                         table.append(row)
-
-                    with open('data/test_out.csv', 'w', encoding='utf-8') as saved_file:
+                        print(row)
+                        break
+                    with open('data/test_out.csv', 'a', encoding='utf-8') as saved_file:
                         writer = csv.writer(saved_file)
                         writer.writerows(table)
                     print(f"completion done in {time.time() - start:06}s", "left:",counter  )
