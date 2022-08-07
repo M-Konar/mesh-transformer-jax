@@ -265,7 +265,6 @@ if __name__ == "__main__":
                             inference_stream = open("unfiltered_generation.json",mode= "w", encoding='utf-8')
                             inference_stream.write(json.dumps(inference_out))
                             inference_stream.close()
-                            inference_out["tasks"]= i
                         if i == quit_after:
                             break
                 except Exception as e:
