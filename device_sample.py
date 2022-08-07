@@ -1,5 +1,6 @@
 import argparse
 import json
+from msilib.schema import tables
 import time
 
 import jax
@@ -204,6 +205,7 @@ if __name__ == "__main__":
                 #     quit_after = 100
                 
                 counter =0
+                table = []
                 for row in rows:
                     quit_after-=1
                     if(quit_after ==0):
@@ -227,13 +229,14 @@ if __name__ == "__main__":
                             string = string.split("<|endoftext|>")[0]
                         except(Exception):
                             pass
-                        # string = string.replace(r"\n", "\n")
-                        # print(f"sample {idx}: {string}\n")
                         row.append(string)
-                        break
 
-                    print(f"completion done in {time.time() - start:06}s", "left:",counter )
-                rows.to_csv('data/test_out.csv', index=False)
+
+                    with open('data/test_out.csv', 'w', encoding='utf-8') as saved_file:
+                        writer = csv.writer(saved_file)
+                        writer.writerows(table)
+                    print(f"completion done in {time.time() - start:06}s", "left:",counter  )
+
                 file_obj.close()
 
 
