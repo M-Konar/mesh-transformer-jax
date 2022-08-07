@@ -120,44 +120,44 @@ if __name__ == "__main__":
                     #     few_shots_prompt = "other"
 
                     tokens = tokenizer.encode(context)
+                    print(tokens)
+                    # start = time.time()
 
-                    start = time.time()
+                    # provided_ctx = len(tokens)
+                    # pad_amount = seq - provided_ctx
+                    # pad_amount = max(pad_amount, 0)
+                    # padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
+                    # batched_tokens = np.array([padded_tokens] * total_batch)
+                    # length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
 
-                    provided_ctx = len(tokens)
-                    pad_amount = seq - provided_ctx
-                    pad_amount = max(pad_amount, 0)
-                    padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
-                    batched_tokens = np.array([padded_tokens] * total_batch)
-                    length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
+                    # temperature = input("Type temperature:")
+                    # try:
+                    #     temperature = float(temperature)
+                    # except(ValueError):
+                    #     temperature = 0.75
 
-                    temperature = input("Type temperature:")
-                    try:
-                        temperature = float(temperature)
-                    except(ValueError):
-                        temperature = 0.75
+                    # top_p = input("Type top_p:")
+                    # try:
+                    #     top_p = float(top_p)
+                    # except(ValueError):
+                    #     top_p = 0.9
 
-                    top_p = input("Type top_p:")
-                    try:
-                        top_p = float(top_p)
-                    except(ValueError):
-                        top_p = 0.9
-
-                    out_length = input("Type output length:")
-                    try:
-                        out_length = int(out_length)
-                    except(ValueError):
-                        out_length = 512
+                    # out_length = input("Type output length:")
+                    # try:
+                    #     out_length = int(out_length)
+                    # except(ValueError):
+                    #     out_length = 512
                     
 
-                    output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
-                                                                            "temp": np.ones(total_batch) * temperature})
+                    # output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
+                    #                                                         "temp": np.ones(total_batch) * temperature})
 
-                    for idx, o in enumerate(output[1][0][:, :, 0]):
-                        string = repr(tokenizer.decode(o))
-                        string = string.replace(r"\n", "\n")
-                        print(f"sample {idx}: {string}\n")
+                    # for idx, o in enumerate(output[1][0][:, :, 0]):
+                    #     string = repr(tokenizer.decode(o))
+                    #     string = string.replace(r"\n", "\n")
+                    #     print(f"sample {idx}: {string}\n")
 
-                    print(f"completion done in {time.time() - start:06}s")
+                    # print(f"completion done in {time.time() - start:06}s")
             elif decision == "2":
                 try:
                     sample = open("data/prompts.json", "r")
