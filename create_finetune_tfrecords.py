@@ -260,8 +260,8 @@ def chunk_and_finalize(arrays, args, encoder):
 
 
 def create_tfrecords(files, args):
-    GPT2TokenizerFast.max_model_input_sizes['gpt2'] = 1e20  # disables a misleading warning
-    encoder = GPT2TokenizerFast.from_pretrained('gpt2')
+    GPT2TokenizerFast.max_model_input_sizes['aubmindlab/aragpt2-large'] = 1e20  # disables a misleading warning
+    encoder = GPT2TokenizerFast.from_pretrained('aubmindlab/aragpt2-large')
 
     random.seed(args.seed)
 
