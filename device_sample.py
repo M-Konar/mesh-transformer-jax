@@ -17,6 +17,8 @@ from mesh_transformer.util import clip_by_global_norm
 
 from datetime import datetime
 from datetime import date
+import pandas as pd
+import csv
 
 
 def parse_args():
@@ -134,13 +136,14 @@ if __name__ == "__main__":
                     try:
                         temperature = float(temperature)
                     except(ValueError):
-                        temperature = 0.75
+                        temperature = 0.9
 
-                    top_p = input("Type top_p:")
-                    try:
-                        top_p = float(top_p)
-                    except(ValueError):
-                        top_p = 0.9
+                    # top_p = input("Type top_p:")
+                    top_p = 0.9
+                    # try:
+                    #     top_p = float(top_p)
+                    # except(ValueError):
+                    #     top_p = 0.9
 
                     out_length = input("Type output length:")
                     try:
@@ -160,24 +163,28 @@ if __name__ == "__main__":
                     print(f"completion done in {time.time() - start:06}s")
             elif decision == "2":
                 try:
-                    sample = open("data/prompts.json", "r")
-                    list = json.load(sample)
-                    sample.close()
+                    # sample = open("data/prompts.json", "r")
+                    file_obj = open(file= 'data/test.csv',mode = "r" , encoding="utf-8")
+                    rows = csv.reader(file_obj)
+                    next(rows)
+                    # list = json.load(sample)
+                    # sample.close()
                 except(FileNotFoundError):
                     print("prompts not found")
                     continue
-
+                
+                
                 temperature = input("Type temperature:")
                 try:
                     temperature = float(temperature)
                 except(ValueError):
                     temperature = 0.75
 
-                top_p = input("Type top_p:")
-                try:
-                    top_p = float(top_p)
-                except(ValueError):
-                    top_p = 0.9
+                top_p = 0.9  #input("Type top_p:")
+                # try:
+                #     top_p = float(top_p)
+                # except(ValueError):
+                #     top_p = 0.9
                 
 
                 out_length = input("Type output length:")
@@ -195,90 +202,122 @@ if __name__ == "__main__":
                     quit_after = int(quit_after)
                 except(ValueError):
                     quit_after = 100
-                inference_out ={
-                    "starting datetime": str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S"),
-                    "finishing datetime": "",
-                    "Temperature":  temperature,
-                    "Top_p": top_p,
-                    "Out_length": out_length,
-                    "tasks_count": 0,
-                    "sample_no": per_replica_batch,
-                    "incomplete_generations": 0,
-                    "errors_count": 0, 
-                    "tasks": []
-                    }
-                tasks = []
-                start = time.time()
-                sum_time =0
-                times_count=0
-                try:
-                    for i in range(len(list)): 
+                
+
+                for row in rows:
+                    context = row[3]
+                    tokens = tokenizer.encode(context)
+                    # print(tokens)
+                    start = time.time()
+
+                    provided_ctx = len(tokens)
+                    pad_amount = seq - provided_ctx
+                    pad_amount = max(pad_amount, 0)
+                    padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
+                    batched_tokens = np.array([padded_tokens] * total_batch)
+                    length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
+                    output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
+                                                                            "temp": np.ones(total_batch) * temperature})
+                    for idx, o in enumerate(output[1][0][:, :, 0]):
+                        string = repr(tokenizer.decode(o))
+                        try:
+                            string = string.split("<|endoftext|>")[0]
+                        except(Exception):
+                            pass
+                        # string = string.replace(r"\n", "\n")
+                        # print(f"sample {idx}: {string}\n")
+                        row.append(string)
+                        break
+
+                    print(f"completion done in {time.time() - start:06}s")
+            file_obj.close()
+            rows.to_csv('data/test_out.csv', index=False)
+
+
+                # inference_out ={
+                #     "starting datetime": str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S"),
+                #     "finishing datetime": "",
+                #     "Temperature":  temperature,
+                #     "Top_p": top_p,
+                #     "Out_length": out_length,
+                #     "tasks_count": 0,
+                #     "sample_no": per_replica_batch,
+                #     "incomplete_generations": 0,
+                #     "errors_count": 0, 
+                #     "tasks": []
+                #     }
+                # tasks = []
+                # start = time.time()
+                # sum_time =0
+                # times_count=0
+                # try:
+                #     for i in range(len(list)): 
                           
-                        task_id = list[i]['task_id']
-                        task_description = list[i]['task_description']
-                        prompt = list[i]['prompt']
-                        test_list = list[i]['test_list']
+                #         task_id = list[i]['task_id']
+                #         task_description = list[i]['task_description']
+                #         prompt = list[i]['prompt']
+                #         test_list = list[i]['test_list']
 
-                        sample = {
-                            "task_id": task_id,
-                            "task_description": task_description ,
-                            "test_list":test_list,
-                            "sample_id": "",
-                            "completion": "",	
-                        }
-                        context = prompt
-                        tokens = tokenizer.encode(context)
+                #         sample = {
+                #             "task_id": task_id,
+                #             "task_description": task_description ,
+                #             "test_list":test_list,
+                #             "sample_id": "",
+                #             "completion": "",	
+                #         }
+                #         context = prompt
+                #         tokens = tokenizer.encode(context)
 
-                        min_start = time.time()
+                #         min_start = time.time()
 
-                        provided_ctx = len(tokens)
-                        pad_amount = seq - provided_ctx
-                        pad_amount = max(pad_amount, 0)
-                        padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
-                        batched_tokens = np.array([padded_tokens] * total_batch)
-                        length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
+                #         provided_ctx = len(tokens)
+                #         pad_amount = seq - provided_ctx
+                #         pad_amount = max(pad_amount, 0)
+                #         padded_tokens = np.pad(tokens, ((pad_amount, 0),)).astype(np.uint32)[-2048:]
+                #         batched_tokens = np.array([padded_tokens] * total_batch)
+                #         length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
                         
                         
-                        output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
-                                                                                "temp": np.ones(total_batch) * temperature})
-                                    #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
+                #         output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
+                #                                                                 "temp": np.ones(total_batch) * temperature})
+                #                     #  generate(self, ctx, ctx_length, gen_length, sampler_options, return_logits=False):
 
                         
-                        for idx, o in enumerate(output[1][0][:, :, 0]):
-                            sample = {
-                            "task_id": task_id,
-                            "task_description": task_description ,
-                            "test_list":test_list,
-                            "sample_id": idx,
-                            "completion": repr(tokenizer.decode(o))	
-                            }
-                            tasks.append(sample)
-                            # print(f"sample {idx}: {str}\n")
-                        sum_time += time.time() - min_start
-                        times_count+=1
-                        print(f"completion done in {time.time() - min_start:06}s")
-                        print("iteration", i,"/",len(list),"eta: ",(len(list)-i)*(sum_time/times_count)/60," min")
-                        if i% save_every == 0:
-                            print("saving..")
-                            inference_out["tasks"] = tasks
-                            inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
-                            inference_stream = open("unfiltered_generation.json",mode= "w", encoding='utf-8')
-                            inference_stream.write(json.dumps(inference_out))
-                            inference_stream.close()
-                        if i == quit_after:
-                            break
-                except Exception as e:
-                    print("XXXXXXXXXXXXXXXX--Error occured--XXXXXXXXXXXXXXXX")
-                    print(e)
-                    pass
-                print(f"Generation done in {time.time() - start:06}s")
-                print("Saving...")
-                inference_out["tasks"] = tasks
-                inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
-                try:
-                    inference_stream = open("unfiltered_generation.json",mode= "w", encoding='utf-8')
-                    inference_stream.write(json.dumps(inference_out))
-                    inference_stream.close()
-                except(FileNotFoundError):
-                    print("unfiltered_generation.json not found")
-                    continue
+                #         for idx, o in enumerate(output[1][0][:, :, 0]):
+                #             sample = {
+                #             "task_id": task_id,
+                #             "task_description": task_description ,
+                #             "test_list":test_list,
+                #             "sample_id": idx,
+                #             "completion": repr(tokenizer.decode(o))	
+                #             }
+                #             tasks.append(sample)
+                #             # print(f"sample {idx}: {str}\n")
+                #         sum_time += time.time() - min_start
+                #         times_count+=1
+                #         print(f"completion done in {time.time() - min_start:06}s")
+                #         print("iteration", i,"/",len(list),"eta: ",(len(list)-i)*(sum_time/times_count)/60," min")
+                #         if i% save_every == 0:
+                #             print("saving..")
+                #             inference_out["tasks"] = tasks
+                #             inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
+                #             inference_stream = open("unfiltered_generation.json",mode= "w", encoding='utf-8')
+                #             inference_stream.write(json.dumps(inference_out))
+                #             inference_stream.close()
+                #         if i == quit_after:
+                #             break
+                # except Exception as e:
+                #     print("XXXXXXXXXXXXXXXX--Error occured--XXXXXXXXXXXXXXXX")
+                #     print(e)
+                #     pass
+                # print(f"Generation done in {time.time() - start:06}s")
+                # print("Saving...")
+                # inference_out["tasks"] = tasks
+                # inference_out["finishing datetime"] = str(date.today()) + " " +(datetime.now()).strftime("%H:%M:%S")
+                # try:
+                #     inference_stream = open("unfiltered_generation.json",mode= "w", encoding='utf-8')
+                #     inference_stream.write(json.dumps(inference_out))
+                #     inference_stream.close()
+                # except(FileNotFoundError):
+                #     print("unfiltered_generation.json not found")
+                #     continue
