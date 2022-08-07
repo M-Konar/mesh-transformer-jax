@@ -92,7 +92,7 @@ if __name__ == "__main__":
 
         tokenizer = transformers.GPT2TokenizerFast.from_pretrained('aubmindlab/aragpt2-large')
         while True:
-            decision = 1 #input("1: for manual-gen\n2: for auto-gen\nYour choice: ")
+            decision =input("1: for manual-gen\n2: for auto-gen\nYour choice: ")
             if decision == "1":
                 while True:
 
