@@ -164,7 +164,7 @@ if __name__ == "__main__":
             elif decision == "2":
                 try:
                     # sample = open("data/prompts.json", "r")
-                    file_obj = open(file= 'data/test.csv',mode = "r" , encoding="utf-8")
+                    file_obj = open('data/test.csv',mode = "r" , encoding="utf-8")
                     rows = csv.reader(file_obj)
                     next(rows)
                     # list = json.load(sample)
