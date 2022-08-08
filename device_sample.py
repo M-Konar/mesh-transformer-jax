@@ -226,6 +226,7 @@ if __name__ == "__main__":
                                                                             "temp": np.ones(total_batch) * temperature})
                     for idx, o in enumerate(output[1][0][:, :, 0]):
                         string = repr(tokenizer.decode(o))
+                        string.replace(r"\n", "\n")
                         try:
                             string = string.split("<|endoftext|>")[0]
                         except(Exception):
