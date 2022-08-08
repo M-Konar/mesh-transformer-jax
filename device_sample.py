@@ -197,7 +197,7 @@ if __name__ == "__main__":
                 #     save_every = int(save_every)
                 # except(ValueError):
                 #     save_every = 20
-                quit_after =  100 #input("Quit after how many iterations:")
+                quit_after =  input("Quit after how many iterations:")
                 # try:
                 #     quit_after = int(quit_after)
                 # except(ValueError):
@@ -209,7 +209,7 @@ if __name__ == "__main__":
                     pass
                 for row in rows:
                     quit_after-=1
-                    if(quit_after ==0):
+                    if(quit_after ==0 and quit_after !=0):
                         break
                     context = row[3]
                     tokens = tokenizer.encode(context)
@@ -238,6 +238,7 @@ if __name__ == "__main__":
                     with open('data/test_out.csv', 'a', encoding='utf-8') as saved_file:
                         writer = csv.writer(saved_file)
                         writer.writerows(table)
+                        table = []
                     print(f"completion done in {time.time() - start:06}s", "left:",counter  )
 
                 file_obj.close()
