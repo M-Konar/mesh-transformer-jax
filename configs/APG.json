@@ -21,11 +21,12 @@
 
   "tpu_size": 8,
 
-  "bucket": "fctm-bucket-new",
-  "model_dir": "model_dir",
+  "bucket": "apg-gptj",
+  "model_dir": "finetuned_models/model1",
 
   "train_set": "APG.train.index",
   "val_set": {
+    "APG_data": "APG.val.index"
   },
 
   "eval_harness_tasks": [
