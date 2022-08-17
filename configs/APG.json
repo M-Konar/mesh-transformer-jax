@@ -12,12 +12,12 @@
   "per_replica_batch": 1,
   "gradient_accumulation_steps": 16,
 
-  "warmup_steps": 150,
-  "anneal_steps": 2850,
-  "lr": 5e-5,
-  "end_lr": 1e-5,
+  "warmup_steps": 100,
+  "anneal_steps": 920,
+  "lr": 1.2e-4,
+  "end_lr": 1.2e-5,
   "weight_decay": 0.1,
-  "total_steps": 3000,
+  "total_steps": 1020,
 
   "tpu_size": 8,
 
@@ -32,11 +32,11 @@
   "eval_harness_tasks": [
   ],
 
-  "val_batches": 1704,
-  "val_every": 10000,
+  "val_batches": 3263,
+  "val_every": 100,
   "ckpt_every": 200,
-  "keep_every": 1000,
+  "keep_every": 500,
 
-  "name": "GPT3_6B_APG_V1.1",
+  "name": "GPT3_6B_APG_V1.2",
   "comment": ""
 }
