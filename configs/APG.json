@@ -26,7 +26,7 @@
 
   "train_set": "APG.train.index",
   "val_set": {
-    
+    "APG": "APG.val.index"
   },
 
   "eval_harness_tasks": [
