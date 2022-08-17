@@ -178,7 +178,7 @@ if __name__ == "__main__":
                 try:
                     temperature = float(temperature)
                 except(ValueError):
-                    temperature = 0.75
+                    temperature = 0.9
 
                 top_p = 0.9  #input("Type top_p:")
                 # try:
@@ -191,7 +191,7 @@ if __name__ == "__main__":
                 try:
                     out_length = int(out_length)
                 except(ValueError):
-                    out_length = 512
+                    out_length = 200
                 # save_every = input("Save after how many iterations:")
                 # try:
                 #     save_every = int(save_every)
@@ -211,7 +211,7 @@ if __name__ == "__main__":
                     # quit_after-=1
                     # if(quit_after <0 and quit_after !=0):
                     #     break
-                    context = row[3]
+                    context = row[0]
                     tokens = tokenizer.encode(context)
                     # print(tokens)
                     start = time.time()
