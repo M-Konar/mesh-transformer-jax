@@ -138,12 +138,12 @@ if __name__ == "__main__":
                     except(ValueError):
                         temperature = 0.9
 
-                    # top_p = input("Type top_p:")
-                    top_p = 0.9
-                    # try:
-                    #     top_p = float(top_p)
-                    # except(ValueError):
-                    #     top_p = 0.9
+                    top_p = input("Type top_p:")
+                    # top_p = 0.9
+                    try:
+                        top_p = float(top_p)
+                    except(ValueError):
+                        top_p = 0.9
 
                     out_length = input("Type output length:")
                     try:
