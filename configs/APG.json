@@ -13,11 +13,11 @@
   "gradient_accumulation_steps": 16,
 
   "warmup_steps": 100,
-  "anneal_steps": 920,
+  "anneal_steps": 2400,
   "lr": 1.2e-4,
   "end_lr": 1.2e-5,
   "weight_decay": 0.1,
-  "total_steps": 1020,
+  "total_steps": 2500,
 
   "tpu_size": 8,
 
@@ -32,11 +32,11 @@
   "eval_harness_tasks": [
   ],
 
-  "val_batches": 3263,
+  "val_batches": 20,
   "val_every": 100,
-  "ckpt_every": 200,
-  "keep_every": 500,
+  "ckpt_every": 1000,
+  "keep_every": 2000,
 
-  "name": "GPT3_6B_APG_V1.2",
+  "name": "GPTJ_6B_APG_Ar_Pretrained",
   "comment": ""
 }
