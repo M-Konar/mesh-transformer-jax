@@ -332,10 +332,10 @@ class CausalTransformer:
 
         batch_size = ctx.shape[0]
         aux = jnp.zeros((batch_size, gen_length), dtype=jnp.uint32)
-        try:
-            print("aux", aux)
-        except:
-            pass
+        # try:
+        #     # print("aux", aux)
+        # except:
+        #     pass
         self.gen_length = gen_length
         self.return_logits = return_logits
 
