@@ -198,15 +198,19 @@ class CausalTransformer:
                 def generate_scan_fn(carry, sampler_input):
                     next_token, decode_state, sample_key = carry
                     sample_key, new_key = jax.random.split(sample_key)
-
+                    print("next token", next_token)
                     logits, new_state = transformer.generate_once(next_token, decode_state)
                     next_token, sample_info = sampler(sample_key, logits, sampler_input, **sampler_options)
+                    print("next token", next_token)
+                    print("sample_info", sample_info)
+
 
                     if self.return_logits:
                         output = (next_token, sample_info, logits)
                     else:
                         output = (next_token, sample_info)
                     new_carry = (next_token, new_state, new_key)
+                    print("new carry", new_carry)
                     return new_carry, output
 
                 final_state, outputs = jax.lax.scan(generate_scan_fn, initial_state, xs=aux, length=gen_length)
@@ -328,6 +332,10 @@ class CausalTransformer:
 
         batch_size = ctx.shape[0]
         aux = jnp.zeros((batch_size, gen_length), dtype=jnp.uint32)
+        try:
+            print("aux", aux)
+        except:
+            pass
         self.gen_length = gen_length
         self.return_logits = return_logits
 

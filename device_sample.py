@@ -150,13 +150,31 @@ if __name__ == "__main__":
                         out_length = int(out_length)
                     except(ValueError):
                         out_length = 512
-                    
-
+                    try:
+                        print("tokens", batched_tokens)
+                        print("tokens shape", batched_tokens.shape[0])
+                    except:
+                        pass
                     output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
                                                                             "temp": np.ones(total_batch) * temperature})
+                    try:
+                        for idx, o in enumerate(output[1][1][:, :, 0]):
+                            print("first for output", tokenizer.decode(o))
+                            break
+                    except:
+                        pass
+                    print("output", output)
 
                     for idx, o in enumerate(output[1][0][:, :, 0]):
+                        try:
+                            print("output[1]",output[1])
+                            print("output[1][0]",output[1][0])
+                            print("output[1][0][:, :, 0]",output[1][0][:, :, 0])
+                            print(tokenizer.decode(o))
+                        except:
+                            pass
                         string = repr(tokenizer.decode(o))
+
                         string = string.replace(r"\n", "\n")
                         print(f"sample {idx}: {string}\n")
 
