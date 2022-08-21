@@ -209,12 +209,16 @@ if __name__ == "__main__":
                 except(ValueError):
                     temperature = 0.9
 
-                top_p = 0.9  #input("Type top_p:")
-                # try:
-                #     top_p = float(top_p)
-                # except(ValueError):
-                #     top_p = 0.9
-                
+                top_p = input("Type top_p:")
+                try:
+                    top_p = float(top_p)
+                except(ValueError):
+                    top_p = 0.9
+                top_k = input("Type top_k:")
+                try:
+                    top_k = float(top_k)
+                except(ValueError):
+                    top_k = 0.9
 
                 out_length = input("Type output length:")
                 try:
@@ -252,7 +256,8 @@ if __name__ == "__main__":
                     batched_tokens = np.array([padded_tokens] * total_batch)
                     length = np.ones(total_batch, dtype=np.uint32) * len(tokens)
                     output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
-                                                                            "temp": np.ones(total_batch) * temperature})
+                                                                            "temp": np.ones(total_batch) * temperature,
+                                                                            "top_k": np.ones(total_batch) * top_k})
                     for idx, o in enumerate(output[1][0][:, :, 0]):
                         string = repr(tokenizer.decode(o))
                         string.replace(r"\n", "\n")
