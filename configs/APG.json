@@ -22,7 +22,7 @@
   "tpu_size": 8,
 
   "bucket": "apg-gptj",
-  "model_dir": "finetuned_models/model2",
+  "model_dir": "finetuned_models/model3",
 
   "train_set": "APG.train.index",
   "val_set": {
