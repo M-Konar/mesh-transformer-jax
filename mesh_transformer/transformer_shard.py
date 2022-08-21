@@ -198,11 +198,11 @@ class CausalTransformer:
                 def generate_scan_fn(carry, sampler_input):
                     next_token, decode_state, sample_key = carry
                     sample_key, new_key = jax.random.split(sample_key)
-                    print("next token", next_token)
+                    # print("next token", next_token)
                     logits, new_state = transformer.generate_once(next_token, decode_state)
                     next_token, sample_info = sampler(sample_key, logits, sampler_input, **sampler_options)
-                    print("next token", next_token)
-                    print("sample_info", sample_info)
+                    # print("next token", next_token)
+                    # print("sample_info", sample_info)
 
 
                     if self.return_logits:
@@ -210,7 +210,7 @@ class CausalTransformer:
                     else:
                         output = (next_token, sample_info)
                     new_carry = (next_token, new_state, new_key)
-                    print("new carry", new_carry)
+                    # print("new carry", new_carry)
                     return new_carry, output
 
                 final_state, outputs = jax.lax.scan(generate_scan_fn, initial_state, xs=aux, length=gen_length)
