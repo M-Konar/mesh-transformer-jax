@@ -143,8 +143,13 @@ if __name__ == "__main__":
                     try:
                         top_p = float(top_p)
                     except(ValueError):
-                        top_p = 0.9
+                        top_p = 0.92
 
+                    top_k = input("Type top_p:")
+                    try:
+                        top_k = float(top_k)
+                    except(ValueError):
+                        top_k = 40
                     out_length = input("Type output length:")
                     try:
                         out_length = int(out_length)
@@ -158,7 +163,7 @@ if __name__ == "__main__":
                         pass
                     output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
                                                                             "temp": np.ones(total_batch) * temperature,
-                                                                            "top_k": np.ones(total_batch) * 40})
+                                                                            "top_k": np.ones(total_batch) * top_k})
                     print("output", output)
                     # input("press enter to continue")
                     try:
