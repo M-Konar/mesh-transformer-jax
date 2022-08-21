@@ -37,6 +37,6 @@
   "ckpt_every": 500,
   "keep_every": 500,
 
-  "name": "GPTJ_6B_APG_Ar_Pretrained",
+  "name": "GPTJ_6B_APG_Ar_Pretrained_v2",
   "comment": ""
 }
