@@ -13,11 +13,11 @@
   "gradient_accumulation_steps": 16,
 
   "warmup_steps": 50,
-  "anneal_steps": 550,
+  "anneal_steps": 450,
   "lr": 5e-5,
   "end_lr": 1e-5,
   "weight_decay": 0.1,
-  "total_steps": 600,
+  "total_steps": 500,
 
   "tpu_size": 8,
 
@@ -34,9 +34,9 @@
 
   "val_batches": 214,
   "val_every": 30,
-  "ckpt_every": 200,
-  "keep_every": 200,
+  "ckpt_every": 150,
+  "keep_every": 150,
 
-  "name": "GPTJ_6B_APG_Ar_Pretrained_v2_finetuned_v1",
+  "name": "GPTJ_6B_APG_Ar_Pretrained_v2_finetuned_v2_qafya_enhanced",
   "comment": ""
 }
