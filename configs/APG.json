@@ -17,12 +17,12 @@
   "lr": 5e-5,
   "end_lr": 1e-5,
   "weight_decay": 0.1,
-  "total_steps": 500,
+  "total_steps": 600,
 
   "tpu_size": 8,
 
   "bucket": "apg-gptj",
-  "model_dir": "finetuned_models/model4",
+  "model_dir": "finetuned_models/model5",
 
   "train_set": "APG.train.index",
   "val_set": {
