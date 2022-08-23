@@ -218,7 +218,7 @@ if __name__ == "__main__":
                 try:
                     top_k = float(top_k)
                 except(ValueError):
-                    top_k = 0.9
+                    top_k = 80
 
                 out_length = input("Type output length:")
                 try:
