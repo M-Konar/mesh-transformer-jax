@@ -145,7 +145,7 @@ if __name__ == "__main__":
                     except(ValueError):
                         top_p = 0.92
 
-                    top_k = input("Type top_p:")
+                    top_k = input("Type top_k:")
                     try:
                         top_k = float(top_k)
                     except(ValueError):
@@ -155,30 +155,30 @@ if __name__ == "__main__":
                         out_length = int(out_length)
                     except(ValueError):
                         out_length = 512
-                    try:
-                        print("tokens", batched_tokens)
-                        print("tokens shape", batched_tokens.shape[0])
-                        # input("press enter to continue")
-                    except:
-                        pass
+                    # try:
+                    #     # print("tokens", batched_tokens)
+                    #     # print("tokens shape", batched_tokens.shape[0])
+                    #     # input("press enter to continue")
+                    # except:
+                    #     pass
                     output = network.generate(batched_tokens, length, out_length, {"top_p": np.ones(total_batch) * top_p,
                                                                             "temp": np.ones(total_batch) * temperature,
                                                                             "top_k": np.ones(total_batch) * top_k})
-                    print("output", output)
+                    # print("output", output)
                     # input("press enter to continue")
-                    try:
-                        for idx, o in enumerate(output[1][1][:, :, 0]):
-                            print("first for output", tokenizer.decode(o))
-                            break
-                    except:
-                        pass
+                    # try:
+                    #     for idx, o in enumerate(output[1][1][:, :, 0]):
+                    #         print("first for output", tokenizer.decode(o))
+                    #         break
+                    # except:
+                    #     pass
                     # input("press enter to continue")
 
                     for idx, o in enumerate(output[1][0][:, :, 0]):
                         try:
                             # print("output[1]",output[1])
                             # print("output[1][0]",output[1][0])
-                            print("output[1][0][:, :, 0]",output[1][0][:, :, 0])
+                            # print("output[1][0][:, :, 0]",output[1][0][:, :, 0])
                             # input("press enter to continue")
                             print("Ooo", o)
                             # input("press enter to continue")
@@ -267,7 +267,7 @@ if __name__ == "__main__":
                             pass
                         row.append(string)
                         table.append(row)
-                        print(row)
+                        print(string)
                         break
                     with open('data/test_out.csv', 'a', encoding='utf-8') as saved_file:
                         writer = csv.writer(saved_file)
