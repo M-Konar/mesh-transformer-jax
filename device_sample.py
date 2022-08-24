@@ -237,7 +237,9 @@ if __name__ == "__main__":
                 #     quit_after = -1
                 
                 counter =0
-                table = [["prompt","topic", "meter", "qafya", "out"]]
+                # table = [["prompt","topic", "meter", "qafya", "out"]]
+                table = [["prompt","meter", "out"]]
+
                 with open('data/test_out.csv', 'w', encoding='utf-8') as saved_file:
                     pass
                 for row in rows:
