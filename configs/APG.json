@@ -22,7 +22,7 @@
   "tpu_size": 8,
 
   "bucket": "apg-gptj",
-  "model_dir": "finetuned_models/model6",
+  "model_dir": "finetuned_models/model7",
 
   "train_set": "APG.train.index",
   "val_set": {
@@ -37,6 +37,6 @@
   "ckpt_every": 200,
   "keep_every": 200,
 
-  "name": "GPTJ_6B_APG_Ar_Pretrained_v3_finetuned_v1_qafya_enhanced",
+  "name": "GPTJ_6B_qafya_enhanced_topic_only_v1",
   "comment": ""
 }
