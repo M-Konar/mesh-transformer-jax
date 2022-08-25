@@ -238,7 +238,7 @@ if __name__ == "__main__":
                 
                 counter =0
                 # table = [["prompt","topic", "meter", "qafya", "out"]]
-                table = [["prompt","meter", "out"]]
+                table = [["prompt","topic", "out"]]
 
                 with open('data/test_out.csv', 'w', encoding='utf-8') as saved_file:
                     pass
