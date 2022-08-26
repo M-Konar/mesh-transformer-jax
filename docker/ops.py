@@ -54,7 +54,7 @@ class GPTJ:
             "sampler": nucleaus_sample,
             "optimizer": optax.scale(0)
         }
-        self.tokenizer = GPT2TokenizerFast.from_pretrained('aubmindlab/aragpt2-large')
+        self.tokenizer = GPT2TokenizerFast.from_pretrained('mofawzy/gpt2-arabic-sentence-generator')
         self.queue_ids = {}
         self.qidx = 0
         self.queue = Queue()

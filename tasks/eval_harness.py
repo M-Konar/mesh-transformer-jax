@@ -14,7 +14,7 @@ tokenizer = None
 
 def process_init():
     global tokenizer
-    tokenizer = transformers.GPT2TokenizerFast.from_pretrained('gpt2')
+    tokenizer = transformers.GPT2TokenizerFast.from_pretrained('mofawzy/gpt2-arabic-sentence-generator')
     tokenizer.model_max_length = int(1e30)
     tokenizer.pad_token = "<|endoftext|>"
 
