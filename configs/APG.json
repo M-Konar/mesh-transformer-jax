@@ -12,12 +12,12 @@
   "per_replica_batch": 1,
   "gradient_accumulation_steps": 16,
 
-  "warmup_steps": 200,
-  "anneal_steps": 1925,
+  "warmup_steps": 70,
+  "anneal_steps": 716,
   "lr": 5e-5,
   "end_lr": 1e-5,
   "weight_decay": 0.1,
-  "total_steps": 2125,
+  "total_steps": 786,
 
   "tpu_size": 8,
 
@@ -32,11 +32,11 @@
   "eval_harness_tasks": [
   ],
 
-  "val_batches": 1890,
-  "val_every": 50,
-  "ckpt_every": 500,
-  "keep_every": 500,
+  "val_batches": 470,
+  "val_every": 30,
+  "ckpt_every": 200,
+  "keep_every": 200,
 
-  "name": "GPTJ_6B_qafya_character_meter_only",
+  "name": "GPTJ_6B_qafya_character_meter_only_v2",
   "comment": ""
 }
