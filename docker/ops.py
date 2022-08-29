@@ -44,7 +44,7 @@ class GPTJ:
             "layers": 28,
             "d_model": 4096,
             "n_heads": 16,
-            "n_vocab": 64035,
+            "n_vocab": 50400,
             "norm": "layernorm",
             "pe": "rotary",
             "pe_rotary_dims": 64,
