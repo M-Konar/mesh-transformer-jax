@@ -2,7 +2,7 @@
   "layers": 28,
   "d_model": 4096,
   "n_heads": 16,
-  "n_vocab": 50400,
+  "n_vocab": 64035,
   "norm": "layernorm",
   "pe": "rotary",
   "pe_rotary_dims": 64,
@@ -22,7 +22,7 @@
   "tpu_size": 8,
 
   "bucket": "apg-gptj",
-  "model_dir": "finetuned_models/model8",
+  "model_dir": "finetuned_models/model7",
 
   "train_set": "APG.train.index",
   "val_set": {
