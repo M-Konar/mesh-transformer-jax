@@ -92,7 +92,9 @@ if __name__ == "__main__":
         del network.state["opt_state"]
         network.state = network.move_xmap(network.state, np.zeros(local_shards))
 
-        tokenizer = transformers.GPT2TokenizerFast.from_pretrained('mofawzy/gpt2-arabic-sentence-generator')
+        tokenizer = transformers.GPT2TokenizerFast.from_pretrained('aubmindlab/aragpt2-base')
+        tokenizer.add_tokens(['أ','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي','ى','ة','ء','ا','إ','ئ','ؤ','آ'],special_tokens=True)
+
         while True:
             decision =input("1: for manual-gen\n2: for auto-gen\nYour choice: ")
             if decision == "1":

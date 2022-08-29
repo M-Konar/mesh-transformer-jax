@@ -14,7 +14,9 @@ tokenizer = None
 
 def process_init():
     global tokenizer
-    tokenizer = transformers.GPT2TokenizerFast.from_pretrained('mofawzy/gpt2-arabic-sentence-generator')
+    tokenizer = transformers.GPT2TokenizerFast.from_pretrained('aubmindlab/aragpt2-base')
+    tokenizer.add_tokens(['أ','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي','ى','ة','ء','ا','إ','ئ','ؤ','آ'],special_tokens=True)
+
     tokenizer.model_max_length = int(1e30)
     tokenizer.pad_token = "<|endoftext|>"
 
