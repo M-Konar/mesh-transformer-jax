@@ -37,6 +37,6 @@
   "ckpt_every": 200,
   "keep_every": 200,
 
-  "name": "GPTJ_6B_qafya_character_meter_only_v2",
+  "name": "GPTJ_6B_qafya_character_meter_only_v3",
   "comment": ""
 }
