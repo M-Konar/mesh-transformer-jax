@@ -262,7 +262,7 @@ def chunk_and_finalize(arrays, args, encoder):
 def create_tfrecords(files, args):
     GPT2TokenizerFast.max_model_input_sizes['mofawzy/gpt2-arabic-sentence-generator'] = 1e20  # disables a misleading warning
     encoder = GPT2TokenizerFast.from_pretrained('mofawzy/gpt2-arabic-sentence-generator')
-    encoder.add_tokens(['أ','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي','ى','ة','ء','ا','إ','ئ','ؤ','آ'],special_tokens=True)
+    encoder.add_tokens(['أ','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي','ى','ة','ء','ا','إ','ئ','ؤ','آ','<|endoftext|>'],special_tokens=True)
 
     random.seed(args.seed)
 

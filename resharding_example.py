@@ -41,7 +41,7 @@ devices = np.array([jax.devices()[0]]).reshape((1, 1))
 maps.thread_resources.env = maps.ResourceEnv(maps.Mesh(devices, ('dp', 'mp')))
 
 tokenizer = transformers.GPT2TokenizerFast.from_pretrained('mofawzy/gpt2-arabic-sentence-generator')
-tokenizer.add_tokens(['أ','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي','ى','ة','ء','ا','إ','ئ','ؤ','آ'],special_tokens=True)
+tokenizer.add_tokens(['أ','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي','ى','ة','ء','ا','إ','ئ','ؤ','آ','<|endoftext|>'],special_tokens=True)
 
 
 network = CausalTransformer(params)
