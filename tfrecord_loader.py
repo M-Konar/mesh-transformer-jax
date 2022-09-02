@@ -91,6 +91,8 @@ class TFRecordWIT(TFRecordLoader):
     def __init__(self, index_fname, batch_size, restore_state=None, text_tokens=256):
         self.tokenizer = GPT2TokenizerFast.from_pretrained("mofawzy/gpt2-arabic-sentence-generator")
         self.tokenizer.add_tokens(['أ','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي','ى','ة','ء','ا','إ','ئ','ؤ','آ','<|endoftext|>'],special_tokens=True)
+        self.tokenizer.add_tokens(['[الطويل]', '[الكامل]', '[البسيط]', '[الخفيف]', '[الوافر]', '[السريع]', '[المتقارب]', '[المنسرح]', '[الرجز]', '[الرمل]', '[المجتث]', '[الهزج]', '[المديد]', '[المتضارع]', '[المقتضب]'],special_tokens=True)
+        self.tokenizer.add_tokens(['[مدح]', '[رومنسيه]', '[حزينه]', '[ذم]'],special_tokens=True)
 
         self.tokenizer.pad_token = "<|endoftext|>"
         self.tokenizer.add_special_tokens({'sep_token': '<|sep|>', 'pad_token': '<|pad|>'})
