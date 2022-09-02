@@ -12,17 +12,17 @@
   "per_replica_batch": 1,
   "gradient_accumulation_steps": 16,
 
-  "warmup_steps": 30,
-  "anneal_steps": 570,
+  "warmup_steps": 60,
+  "anneal_steps": 840,
   "lr": 5e-5,
   "end_lr": 1e-5,
   "weight_decay": 0.1,
-  "total_steps": 600,
+  "total_steps": 900,
 
   "tpu_size": 8,
 
   "bucket": "apg-gptj",
-  "model_dir": "finetuned_models/model11",
+  "model_dir": "finetuned_models/model12",
 
   "train_set": "APG.train.index",
   "val_set": {
@@ -32,11 +32,11 @@
   "eval_harness_tasks": [
   ],
 
-  "val_batches": 533,
+  "val_batches": 530,
   "val_every": 30,
-  "ckpt_every": 150,
-  "keep_every": 150,
+  "ckpt_every": 200,
+  "keep_every": 200,
 
-  "name": "GPTJ_6B_qafya_character_topic_only_v1_endoftext_fixed",
+  "name": "GPTJ_6B_character_topic_only_v1_special_tokens",
   "comment": ""
 }
