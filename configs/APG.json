@@ -12,17 +12,17 @@
   "per_replica_batch": 1,
   "gradient_accumulation_steps": 16,
 
-  "warmup_steps": 100,
-  "anneal_steps": 1176,
-  "lr": 5e-5,
-  "end_lr": 1e-5,
+  "warmup_steps": 125,
+  "anneal_steps": 2427,
+  "lr": 1e-5,
+  "end_lr": 1e-6,
   "weight_decay": 0.1,
-  "total_steps": 1276,
+  "total_steps": 2552,
 
   "tpu_size": 8,
 
   "bucket": "apg-gptj",
-  "model_dir": "finetuned_models/model12",
+  "model_dir": "finetuned_models/model13",
 
   "train_set": "APG.train.index",
   "val_set": {
@@ -37,6 +37,6 @@
   "ckpt_every": 300,
   "keep_every": 300,
 
-  "name": "GPTJ_6B_character_topic_only_v1_special_tokens",
+  "name": "GPTJ_6B_character_topic_only_v2_special_tokens_high_lr",
   "comment": ""
 }
