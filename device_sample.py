@@ -96,7 +96,7 @@ if __name__ == "__main__":
         tokenizer.add_tokens(['أ','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي','ى','ة','ء','ا','إ','ئ','ؤ','آ','<|endoftext|>'],special_tokens=True)
         tokenizer.add_tokens(['[الطويل]', '[الكامل]', '[البسيط]', '[الخفيف]', '[الوافر]', '[السريع]', '[المتقارب]', '[المنسرح]', '[الرجز]', '[الرمل]', '[المجتث]', '[الهزج]', '[المديد]', '[المتضارع]', '[المقتضب]'],special_tokens=True)
         tokenizer.add_tokens(['[مدح]', '[رومنسيه]', '[حزينه]', '[ذم]'],special_tokens=True)
-
+        tokenizer.add_tokens(['...'],special_tokens=True)
         while True:
             decision =input("1: for manual-gen\n2: for auto-gen\nYour choice: ")
             if decision == "1":
